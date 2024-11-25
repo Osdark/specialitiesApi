@@ -2,6 +2,7 @@ package com.clubes.especialidades.api.controller;
 
 import com.clubes.especialidades.api.dao.Region;
 import com.clubes.especialidades.api.service.RegionService;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
@@ -11,6 +12,7 @@ import java.util.List;
 import java.util.UUID;
 
 @RestController
+@Tag(name = "Region controller", description = "API to manage regions")
 public class RegionControllerImpl implements RegionController {
 	@Autowired
 	private RegionService service;

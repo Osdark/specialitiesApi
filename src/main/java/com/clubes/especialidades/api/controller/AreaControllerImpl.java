@@ -2,6 +2,7 @@ package com.clubes.especialidades.api.controller;
 
 import com.clubes.especialidades.api.dao.Area;
 import com.clubes.especialidades.api.service.AreaService;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
@@ -11,6 +12,7 @@ import java.util.List;
 import java.util.UUID;
 
 @RestController
+@Tag(name = "Area controller", description = "API to manage areas")
 public class AreaControllerImpl implements AreaController {
 	@Autowired
 	private AreaService service;

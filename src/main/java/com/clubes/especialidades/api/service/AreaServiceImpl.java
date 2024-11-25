@@ -20,7 +20,7 @@ public class AreaServiceImpl implements AreaService {
 	@Override
 	public boolean updateArea(UUID id, Area area) {
 		repo.findById(id).ifPresentOrElse(
-				(existing) -> {
+				existing -> {
 					existing.setName(area.getName());
 					existing.setInfo(area.getInfo());
 					repo.save(existing);

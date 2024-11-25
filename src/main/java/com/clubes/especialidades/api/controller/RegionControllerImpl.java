@@ -50,4 +50,9 @@ public class RegionControllerImpl implements RegionController {
 	public ResponseEntity<Region> getRegionByName(String name) {
 		return ResponseEntity.ok(service.getRegionByName(name));
 	}
+
+	@Override
+	public ResponseEntity<Region> getRegionByAbbreviation(String abbreviation) {
+		return ResponseEntity.ok(service.getRegionByAbbreviation(abbreviation));
+	}
 }

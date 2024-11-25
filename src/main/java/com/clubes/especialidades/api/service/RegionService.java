@@ -1,12 +1,10 @@
 package com.clubes.especialidades.api.service;
 
 import com.clubes.especialidades.api.dao.Region;
-import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.UUID;
 
-@Service
 public interface RegionService {
 	Region createRegion(Region region);
 
@@ -19,4 +17,6 @@ public interface RegionService {
 	List<Region> getRegions();
 
 	Region getRegionByName(String name);
+
+	Region getRegionByAbbreviation(String abbreviation);
 }

@@ -1,5 +1,6 @@
 package com.clubes.especialidades.api.dao;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -13,7 +14,6 @@ import java.util.UUID;
 @Getter
 @Setter
 @Entity
-@Table(name = "specialities")
 public class Speciality {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)

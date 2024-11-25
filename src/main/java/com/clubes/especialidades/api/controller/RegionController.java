@@ -28,4 +28,7 @@ public interface RegionController {
 
 	@GetMapping("/name/{name}")
 	ResponseEntity<Region> getRegionByName(@PathVariable String name);
+
+	@GetMapping("/abbreviation/{abbreviation}")
+	ResponseEntity<Region> getRegionByAbbreviation(@PathVariable String abbreviation);
 }

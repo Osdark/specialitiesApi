@@ -1,7 +1,6 @@
 package com.clubes.especialidades.api.controller;
 
 import com.clubes.especialidades.api.dao.Area;
-import com.clubes.especialidades.api.dao.Requirement;
 import com.clubes.especialidades.api.service.AreaService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;

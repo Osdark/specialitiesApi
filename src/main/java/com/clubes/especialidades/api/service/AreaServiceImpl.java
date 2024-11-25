@@ -4,10 +4,12 @@ import com.clubes.especialidades.api.dao.Area;
 import com.clubes.especialidades.api.repository.AreaRepo;
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.UUID;
 
+@Service
 public class AreaServiceImpl implements AreaService {
 	@Autowired
 	private AreaRepo repo;
@@ -22,7 +24,7 @@ public class AreaServiceImpl implements AreaService {
 		repo.findById(id).ifPresentOrElse(
 				existing -> {
 					existing.setName(area.getName());
-					existing.setInfo(area.getInfo());
+					existing.setColor(area.getColor());
 					repo.save(existing);
 				},
 				() -> {
@@ -50,6 +52,6 @@ public class AreaServiceImpl implements AreaService {
 
 	@Override
 	public Area getAreaByName(String name) {
-		return repo.findByName(name);
+		return repo.findByNameIgnoreCase(name).orElseThrow(EntityNotFoundException::new);
 	}
 }

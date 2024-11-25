@@ -4,10 +4,12 @@ import com.clubes.especialidades.api.dao.Requirement;
 import com.clubes.especialidades.api.repository.RequirementRepo;
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.UUID;
 
+@Service
 public class RequirementServiceImpl implements RequirementService {
 	@Autowired
 	private RequirementRepo repo;

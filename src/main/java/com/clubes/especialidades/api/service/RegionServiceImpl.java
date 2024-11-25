@@ -4,10 +4,12 @@ import com.clubes.especialidades.api.dao.Region;
 import com.clubes.especialidades.api.repository.RegionRepo;
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.UUID;
 
+@Service
 public class RegionServiceImpl implements RegionService{
 	@Autowired
 	private RegionRepo repo;
@@ -22,7 +24,7 @@ public class RegionServiceImpl implements RegionService{
 		repo.findById(id).ifPresentOrElse(
 				existing -> {
 					existing.setName(region.getName());
-					existing.setInfo(region.getInfo());
+					existing.setAbbreviation(region.getAbbreviation());
 					repo.save(region);
 				},
 				() -> {
@@ -50,6 +52,11 @@ public class RegionServiceImpl implements RegionService{
 
 	@Override
 	public Region getRegionByName(String name) {
-		return repo.findByName(name);
+		return repo.findByNameIgnoreCase(name).orElseThrow(EntityNotFoundException::new);
+	}
+
+	@Override
+	public Region getRegionByAbbreviation(String abbreviation) {
+		return repo.findByAbbreviationIgnoreCase(abbreviation).orElseThrow(EntityNotFoundException::new);
 	}
 }

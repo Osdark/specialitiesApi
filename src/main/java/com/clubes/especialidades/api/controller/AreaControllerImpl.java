@@ -20,7 +20,7 @@ public class AreaControllerImpl implements AreaController {
 	@Override
 	public ResponseEntity<Area> createArea(Area area, BindingResult bindingResult) {
 		if (bindingResult.hasErrors()) {
-			throw new IllegalArgumentException("Validation failed for request body: " + bindingResult.getAllErrors());
+			throw new IllegalArgumentException("Validation failed for request body: " + bindingResult.getFieldError());
 		}
 		return ResponseEntity.ok(service.createArea(area));
 	}
@@ -28,7 +28,7 @@ public class AreaControllerImpl implements AreaController {
 	@Override
 	public ResponseEntity<Boolean> updateArea(UUID id, Area area, BindingResult bindingResult) {
 		if (bindingResult.hasErrors()) {
-			throw new IllegalArgumentException("Validation failed for request body: " + bindingResult.getAllErrors());
+			throw new IllegalArgumentException("Validation failed for request body: " + bindingResult.getFieldError());
 		}
 		return ResponseEntity.ok(service.updateArea(id, area));
 	}

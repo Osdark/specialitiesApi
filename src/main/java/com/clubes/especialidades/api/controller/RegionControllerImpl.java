@@ -20,7 +20,7 @@ public class RegionControllerImpl implements RegionController {
 	@Override
 	public ResponseEntity<Region> createRegion(Region region, BindingResult bindingResult) {
 		if (bindingResult.hasErrors()) {
-			throw new IllegalArgumentException("Validation failed for request body: " + bindingResult.getAllErrors());
+			throw new IllegalArgumentException("Validation failed for request body: " + bindingResult.getFieldError());
 		}
 		return ResponseEntity.ok(service.createRegion(region));
 	}
@@ -28,7 +28,7 @@ public class RegionControllerImpl implements RegionController {
 	@Override
 	public ResponseEntity<Boolean> updateRegion(UUID id, Region region, BindingResult bindingResult) {
 		if (bindingResult.hasErrors()) {
-			throw new IllegalArgumentException("Validation failed for request body: " + bindingResult.getAllErrors());
+			throw new IllegalArgumentException("Validation failed for request body: " + bindingResult.getFieldError());
 		}
 		return ResponseEntity.ok(service.updateRegion(id, region));
 	}

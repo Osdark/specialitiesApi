@@ -1,7 +1,6 @@
 package com.clubes.especialidades.api.controller;
 
 import com.clubes.especialidades.api.dao.Area;
-import com.clubes.especialidades.api.dao.Requirement;
 import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;

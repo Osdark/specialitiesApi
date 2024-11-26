@@ -1,12 +1,11 @@
 package com.clubes.especialidades.api.dao;
 
-import com.fasterxml.jackson.annotation.JsonInclude;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotNull;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import java.util.List;
 import java.util.Set;
 import java.util.UUID;
 
@@ -18,8 +17,8 @@ public class Speciality {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private UUID id;
+	@NotNull(message = "Name cannot be null")
 	private String name;
-	private String info;
 	private String image;
 	private String pdf;
 
@@ -33,6 +32,4 @@ public class Speciality {
 			inverseJoinColumns = @JoinColumn(name = "region_id")
 	)
 	private Set<Region> regions;
-	@OneToMany(mappedBy = "speciality", cascade = CascadeType.ALL, orphanRemoval = true)
-	private Set<Requirement> requirements;
 }

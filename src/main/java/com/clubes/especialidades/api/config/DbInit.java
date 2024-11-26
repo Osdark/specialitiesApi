@@ -2,9 +2,12 @@ package com.clubes.especialidades.api.config;
 
 import com.clubes.especialidades.api.dao.Area;
 import com.clubes.especialidades.api.dao.Region;
+import com.clubes.especialidades.api.dao.sec.User;
 import com.clubes.especialidades.api.repository.AreaRepo;
 import com.clubes.especialidades.api.repository.RegionRepo;
+import com.clubes.especialidades.api.repository.UserRepo;
 import jakarta.annotation.PostConstruct;
+import jakarta.transaction.Transactional;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -19,15 +22,26 @@ public class DbInit {
 	private AreaRepo areaRepo;
 	@Autowired
 	private RegionRepo regionRepo;
+	@Autowired
+	private UserRepo userRepo;
 
 	@PostConstruct
+	@Transactional
 	private void populateDB() {
 		log.info("Populating DB with initial data regions and areas");
 		populateAreaTable();
 		populateRegionTable();
+		populateUsersTable();
+	}
+
+	private void populateUsersTable() {
+		log.info("Populating users table");
+		User user = new User(1L, "user", "$2a$10$F.09JxUompOXkbMGrAshWeSYs90YppZcG8IALnKwTjlgSiaomrawC", true, "ROLE_ADMIN");
+		userRepo.save(user);
 	}
 
 	private void populateRegionTable() {
+		log.info("Populating region table");
 		List<Region> regions = List.of(
 				new Region(UUID.fromString("90f529a8-ae57-40e2-9af5-7e45ebe7d653"), "Norte", "DNA"),
 				new Region(UUID.fromString("6dcf8726-f24f-47a9-abb9-e352589d8b02"), "Inter", "DIA"),
@@ -37,6 +51,7 @@ public class DbInit {
 	}
 
 	private void populateAreaTable() {
+		log.info("Populating area table");
 		List<Area> areas = List.of(
 				new Area(UUID.fromString("2ccb3298-f181-41af-a05a-b34a0703766f"), "Doméstica", "#f29005, #e5d500"),
 				new Area(UUID.fromString("12752192-7ad4-4bf9-916a-e7030ff7a23a"), "Manual", "#649fc5"),

@@ -44,6 +44,8 @@ dependencies {
     implementation 'jakarta.validation:jakarta.validation-api:3.0.0'
 //  swagger
     implementation 'org.springdoc:springdoc-openapi-starter-webmvc-ui:2.7.0'
+//  csv
+    implementation 'com.opencsv:opencsv:5.7.1'
 }
 
 tasks.named('test') {

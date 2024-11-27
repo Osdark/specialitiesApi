@@ -13,4 +13,6 @@ public interface SpecialityRepo extends JpaRepository<Speciality, UUID> {
 	List<Speciality> findByAreaNameIgnoreCase(String area);
 
 	List<Speciality> findByRegionsNameIgnoreCase(String region);
+
+	boolean existsByName(String name);
 }

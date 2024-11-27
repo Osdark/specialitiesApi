@@ -5,12 +5,17 @@ import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
 import java.util.List;
 import java.util.UUID;
 
 @RequestMapping("/honor")
 public interface SpecialityController {
+	@PostMapping("/batchLoad")
+	ResponseEntity<String> batchLoadSpecialities(@RequestParam("file") MultipartFile file) throws IOException;
+
 	@PostMapping("/new")
 	ResponseEntity<Speciality> createSpeciality(@RequestBody @Valid Speciality speciality, BindingResult bindingResult);
 

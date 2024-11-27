@@ -18,13 +18,15 @@ public class Speciality {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private UUID id;
 	@NotNull(message = "Name cannot be null")
+	@Column(unique = true)
 	private String name;
 	private String image;
 	private String pdf;
 
-	@OneToOne(cascade = CascadeType.ALL)
-	@JoinColumn(name = "area_id", referencedColumnName = "id")
+	@ManyToOne
+	@JoinColumn(name = "area_id", referencedColumnName = "id", nullable = false)
 	private Area area;
+
 	@ManyToMany
 	@JoinTable(
 			name = "speciality_region",

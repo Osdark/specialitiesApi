@@ -10,6 +10,7 @@ import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
+import org.springframework.web.multipart.MultipartException;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -54,5 +55,10 @@ public class GlobalExceptionHandler {
 	@ExceptionHandler(AuthorizationDeniedException.class)
 	public ResponseEntity<String> handleAuthorizationDeniedException(AuthorizationDeniedException ex) {
 		return new ResponseEntity<>(ex.getMessage(), HttpStatus.UNAUTHORIZED);
+	}
+
+	@ExceptionHandler(MultipartException.class)
+	public ResponseEntity<?> handleMultipartException(MultipartException ex) {
+		return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Error al procesar archivo: " + ex.getMessage());
 	}
 }

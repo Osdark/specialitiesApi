@@ -1,10 +1,14 @@
 package com.clubes.especialidades.api.dao.sec;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+
+import java.util.Set;
 
 @NoArgsConstructor
 @AllArgsConstructor
@@ -19,6 +23,10 @@ public class User {
 	private String username;
 	private String password;
 	private String role;
+
+	@OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+	@JsonIgnore
+	private Set<ApiKey> apiKeys;
 
 	public User(String username, String password, String role) {
 		this.username = username;

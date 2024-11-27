@@ -17,10 +17,13 @@ public interface SpecialityController {
 	ResponseEntity<String> batchLoadSpecialities(@RequestParam("file") MultipartFile file) throws IOException;
 
 	@PostMapping("/new")
-	ResponseEntity<Speciality> createSpeciality(@RequestBody @Valid Speciality speciality, BindingResult bindingResult);
+	ResponseEntity<Speciality> createSpeciality(@RequestBody @Valid Speciality speciality,
+												BindingResult bindingResult);
 
 	@PutMapping("/update/{id}")
-	ResponseEntity<Boolean> updateSpeciality(@PathVariable UUID id, @RequestBody @Valid Speciality speciality, BindingResult bindingResult);
+	ResponseEntity<Boolean> updateSpeciality(@PathVariable UUID id,
+											 @RequestBody @Valid Speciality speciality,
+											 BindingResult bindingResult);
 
 	@DeleteMapping("/delete/{id}")
 	ResponseEntity<Boolean> deleteSpeciality(UUID id);

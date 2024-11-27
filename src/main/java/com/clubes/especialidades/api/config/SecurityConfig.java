@@ -24,10 +24,15 @@ public class SecurityConfig {
 	private CustomUserDetailsService userDetailsService;
 	@Autowired
 	private JwtAuthFilter jwtAuthFilter;
+	@Autowired
+	private ApiKeyAuthFilter apiKeyAuthFilter;
 
 	@Bean
 	public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
-		http.authorizeHttpRequests(auth -> auth
+		http
+				.addFilterBefore(apiKeyAuthFilter, UsernamePasswordAuthenticationFilter.class)
+				.addFilterAfter(jwtAuthFilter, ApiKeyAuthFilter.class)
+				.authorizeHttpRequests(auth -> auth
 						.requestMatchers("/swagger-ui/**", "/v3/api-docs/**", "/auth/login").permitAll()
 						.anyRequest().authenticated()
 				)
@@ -36,7 +41,6 @@ public class SecurityConfig {
 				.sessionManagement(sessionManagementConfigurer ->
 						sessionManagementConfigurer.sessionCreationPolicy(SessionCreationPolicy.STATELESS));
 
-		http.addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter.class);
 		return http.build();
 	}
 

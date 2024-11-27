@@ -1,9 +1,13 @@
 package com.clubes.especialidades.api.controller;
 
 import com.clubes.especialidades.api.dao.sec.LoginRequest;
+import com.clubes.especialidades.api.dao.sec.User;
+import com.clubes.especialidades.api.service.ApiKeyService;
 import com.clubes.especialidades.api.service.JwtTokenProvider;
+import com.clubes.especialidades.api.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -20,6 +24,10 @@ public class AuthControllerImpl implements AuthController {
 	private AuthenticationManager authManager;
 	@Autowired
 	private JwtTokenProvider jwtTokenProvider;
+	@Autowired
+	private ApiKeyService apiKeyService;
+	@Autowired
+	private UserService userService;
 
 	@Override
 	public ResponseEntity<Map<String, Object>> login(LoginRequest request) {
@@ -36,5 +44,16 @@ public class AuthControllerImpl implements AuthController {
 				.toList();
 		String token = jwtTokenProvider.generateToken(request.getUsername(), roles);
 		return ResponseEntity.ok(Map.of("Token", token));
+	}
+
+	@Override
+	@PreAuthorize("hasAuthority('ADMIN')")
+	public ResponseEntity<Map<String, Object>> generateApiKey(String username) {
+		User user = userService.getByUsername(username);
+		if (user != null) {
+			String apiKey = apiKeyService.generateApiKey(user);
+			return ResponseEntity.ok(Map.of("ApiKey", apiKey));
+		}
+		return ResponseEntity.badRequest().body(Map.of("Error", "User not found"));
 	}
 }

@@ -36,8 +36,11 @@ public class DbInit {
 
 	private void populateUsersTable() {
 		log.info("Populating users table");
-		User user = new User(1L, "user", "$2a$10$F.09JxUompOXkbMGrAshWeSYs90YppZcG8IALnKwTjlgSiaomrawC", true, "ROLE_ADMIN");
-		userRepo.save(user);
+		List<User> users = List.of(
+				new User(1L, "admin", "$2a$10$F.09JxUompOXkbMGrAshWeSYs90YppZcG8IALnKwTjlgSiaomrawC", true, "ADMIN"),
+				new User(2L, "user", "$2a$10$F.09JxUompOXkbMGrAshWeSYs90YppZcG8IALnKwTjlgSiaomrawC", true, "USER")
+		);
+		userRepo.saveAll(users);
 	}
 
 	private void populateRegionTable() {
